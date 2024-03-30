@@ -1,0 +1,26 @@
+pages/ routes: homepage, login, logout, dashboard
+
+can only acess hopmepage without logging in
+
+homepage has post each post needs: title, date created, the post can be clicked on 
+after being clicked on it takes to to a page with the post where you see the post title, contents, post creator’s username, and date created for that post and have the option to leave a comment
+
+after signed in can click on comment to write a comment on the post that can be saved on the post and is updated to display the comment the comment shows the commentors username and the date created
+
+dashboard shows post made by the logged in person where they can write new post, when they click on one of there post they can update the post or delete the post 
+
+auto log out of site after idle for a set time
+
+modle post
+id
+title
+contents
+created by
+date created
+comments
+
+modle comments 
+id
+contents
+date created
+created by
