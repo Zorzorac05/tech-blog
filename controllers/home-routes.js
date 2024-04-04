@@ -1,17 +1,12 @@
 const router = require('express').Router();
-const { Post, Comments, User } = require('../../models');
+const { Post, Comments, User } = require('../models');
 
 // GET for homepage
 router.get('/', async (req, res) => {
   try {
     //await to load post from users
-    const dbPostData = await Post.findAll({
-      include: [
-        {
-          attributes: ['title', 'date_created'],
-        },
-      ],
-    });
+    const dbPostData = await Post.findAll();
+    
     //maps out post to get them ready for display
     const homePost = dbPostData.map((post) =>
       post.get({ plain: true })

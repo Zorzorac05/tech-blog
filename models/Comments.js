@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, DATEONLY } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Comments extends Model {}
@@ -18,21 +18,22 @@ Comments.init(
         date_created: {
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         },
-        created_by: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'User',
-                key: 'id'
+                model: 'user',
+                key: 'id',
             },
         },
         post_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Post',
-                key: 'id'
+                model: 'post',
+                key: 'id',
             }
         }
     },
