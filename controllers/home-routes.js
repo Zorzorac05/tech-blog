@@ -1,11 +1,15 @@
 const router = require('express').Router();
 const { Post, Comments, User } = require('../models');
+const auth = require('../utils/auth');
 
-// GET for homepage
-router.get('/', async (req, res) => {
+// GET for homepage when logged in
+router.get('/', auth, async (req, res) => {
   try {
     //await to load post from users
-    const dbPostData = await Post.findAll();
+    const dbPostData = await Post.findAll({
+      include: {model: User},
+      order: [['date_created', 'DESC']],
+    });
     
     //maps out post to get them ready for display
     const homePost = dbPostData.map((post) =>
@@ -15,6 +19,7 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
       //get homepage
       homePost,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
@@ -22,5 +27,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+//goes to log in if not logged in
+router.get('/login', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
 
 module.exports = router;
