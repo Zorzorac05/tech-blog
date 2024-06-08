@@ -24,7 +24,11 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [10],
+        notEmpty: true,
+        len: {
+          args: [5, 20],
+          msg: 'password must be between 5 and 20 characters'
+        },
       },
     },
   },

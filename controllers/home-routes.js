@@ -19,7 +19,7 @@ router.get('/', auth, async (req, res) => {
     res.render('homepage', {
       //get homepage
       homePost,
-      logged_in: req.session.logged_in,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);
@@ -29,7 +29,7 @@ router.get('/', auth, async (req, res) => {
 
 //goes to log in if not logged in
 router.get('/login', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     res.redirect('/');
     return;
   }

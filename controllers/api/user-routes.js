@@ -7,7 +7,7 @@ router.post('/signUp', async (req, res) => {
     const dbUserData = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.user_id = userData.dataValues.id;
+      req.session.user_id = dbUserData.dataValues.id;
       req.session.loggedIn = true;
 
       res.status(200).json(dbUserData);
@@ -32,7 +32,10 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
+    //const validPassword = await dbUserData.checkPassword(req.body.password);
+    const validPassword = await User.findOne({
+      where: { password: req.body.password },
+  });
 
     if (!validPassword) {
       res
@@ -42,7 +45,7 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = userData.dataValues.id;
+      req.session.user_id = dbUserData.dataValues.id;
       req.session.loggedIn = true;
 
       res
