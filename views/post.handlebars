@@ -1,0 +1,18 @@
+<div class="post-id" data-id='{{post.id}}'>
+    <h3>{{post.title}}</h3>
+    <strong>{{post.user.name}}</strong>
+    <p>{{post.content}}</p>
+    <p>{{post.date_created}}</p>
+    </br>
+</div>
+
+{{> comments post.comments}}
+
+<button id="comment-btn">add comment</button>
+
+<form id="comment-wrapper">
+    <textarea id="new-comment" name="post">comment here</textarea>
+    <input id="submit-comment" type="submit" value="Submit">
+</form>
+
+<script src="/js/handleComment.js"></script>
